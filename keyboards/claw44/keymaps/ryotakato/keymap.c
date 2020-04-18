@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----+----+----+----+----+----.     ,----+----+----+----+----+----.
      ESC , Q  , W  ,COMM,DOT ,SCLN,       M  , R  , D  , Y  , P  ,MINS,
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|
-    S_TAB, A  ,C_O , E  ,M_I , U  ,       G  ,M_T , K  ,C_S , N  ,S_ESC,
+    S_TAB, A  ,C_O , E  ,M_I , U  ,       G  ,M_T , K  ,C_S , N  ,COLN,
   //|----+----+----+----+----+----+     |----+----+----+----+----+----|
          , Z  , X  , C  , V  , F  ,       B  , H  , J  , L  ,SLSH,    ,
   //`----+----+----+----+----+----/     \----+----+----+----+----+----'
@@ -96,17 +96,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //          `----+----+----+----'     `----+----+----+----'
   ),
 
-  //   \ ^ ! & |  @ = + * % -
-  // ( # $ " ' ~  ← ↓ ↑ → ` )
-  //         { [  ] }
+  //   \   < > :  @ = + * % -
+  //   # " ' [ (  ) ] ↑ ! & |
+  //   ` ~ ^ $ {  } ← ↓ → ?
 
   [_RAISE] = LAYOUT_kc( \
   //,----+----+----+----+----+----.     ,----+----+----+----+----+----.
-         ,BSLS,CIRC,EXLM,AMPR,PIPE,      AT  ,EQL ,PLUS,ASTR,PERC,MINS,
+         ,BSLS,    , LT , GT ,COLN,      AT  ,EQL ,PLUS,ASTR,PERC,MINS,
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|
-     LPRN,HASH,DLR ,DQT ,QUOT,TILD,      LEFT,DOWN, UP ,RGHT,GRV ,RPRN,
+         ,HASH,DQT ,QUOT,LBRC,LPRN,      RPRN,RBRC, UP ,EXLM,AMPR,PIPE,
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|
-        ,     ,    ,    ,LCBR,LBRC,      RBRC,RCBR,    ,    ,    ,    ,
+         ,GRV ,TILD,CIRC,DLR ,LCBR,      RCBR,LEFT,DOWN,RGHT,QUES,    ,
   //`----+----+----+----+----+----/     \----+----+----+----+----+----'
                    ,    ,BSPC,    ,          ,    ,    ,RST
   //          `----+----+----+----'     `----+----+----+----'
