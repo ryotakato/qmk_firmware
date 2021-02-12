@@ -43,8 +43,8 @@ enum macro_keycodes {
 #define KC_S_EN LSFT_T(KC_LANG2)
 
 // cmd_t
-#define KC_M_I LCMD_T(KC_I)
-#define KC_M_T LCMD_T(KC_T)
+//#define KC_M_I LCMD_T(KC_I)
+//#define KC_M_T LCMD_T(KC_T)
 
 // ctl_t
 #define KC_C_S LCTL_T(KC_S)
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----+----+----+----+----+----.     ,----+----+----+----+----+----.
      ESC , Q  , W  ,COMM,DOT ,SCLN,       M  , R  , D  , Y  , P  ,MINS,
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|
-    S_TAB, A  , O  , E  ,M_I , U  ,       G  ,M_T , K  , S  , N  ,COLN,
+    S_TAB, A  , O  , E  , I  , U  ,       G  , T  , K  , S  , N  ,COLN,
   //|----+----+----+----+----+----+     |----+----+----+----+----+----|
      LCMD, Z  , X  , C  , V  , F  ,       B  , H  , J  , L  ,SLSH,RALT,
   //`----+----+----+----+----+----/     \----+----+----+----+----+----'
@@ -209,6 +209,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RAISE);
       }
+      return false;
+      break;
+    case KC_LANG1:
+      tap_code(keycode);
+      tap_code(KC_LANG5);
+      return false;
+      break;
+    case KC_LANG2:
+      tap_code(keycode);
+      tap_code(KC_INT2);
+      tap_code(KC_GRAVE);
       return false;
       break;
   }
