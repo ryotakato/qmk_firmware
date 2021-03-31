@@ -33,7 +33,11 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
 SRC += i2c.c
 SRC += serial.c
-SRC += ssd1306.c
+# SRC += ssd1306.c
+SRC += games/ssd1306.c
+SRC += games/screen.c
+SRC += games/xorshift.c
+SRC += games/lifegame.c
 
 # if firmware size over limit, try this option
 # CFLAGS += -flto

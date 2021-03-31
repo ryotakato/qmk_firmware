@@ -5,6 +5,8 @@
 #endif
 #ifdef SSD1306OLED
   #include "ssd1306.h"
+  #include "games/lifegame.h"
+  #include "games/screen.h"
 #endif
 
 extern keymap_config_t keymap_config;
@@ -18,12 +20,11 @@ extern uint8_t is_master;
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
-  RAISE
+  RAISE,
+  KC_LGINI
 };
 
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
+Lifegame g_lifegame;
 
 // common
 #define KC_ KC_TRNS
@@ -108,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|
          ,GRV ,TILD,CIRC,DLR ,LCBR,      RCBR,LEFT,DOWN,RGHT,QUES,    ,
   //`----+----+----+----+----+----/     \----+----+----+----+----+----'
-                   ,    ,BSPC,    ,          ,    ,    ,RST
+                   ,    ,BSPC,    ,          ,    ,LGINI,RST
   //          `----+----+----+----'     `----+----+----+----'
   ),
 
@@ -154,14 +155,14 @@ void matrix_scan_user(void) {
 void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
     // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
-    matrix_write_ln(matrix, read_keylogs());
+    //matrix_write_ln(matrix, read_layer_state());
+    //matrix_write_ln(matrix, read_keylog());
+    //matrix_write_ln(matrix, read_keylogs());
     //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
     //matrix_write_ln(matrix, read_host_led_state());
     //matrix_write_ln(matrix, read_timelog());
   } else {
-    matrix_write(matrix, read_logo());
+    //matrix_write(matrix, read_logo());
   }
 }
 
@@ -172,18 +173,31 @@ void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *s
   }
 }
 
+/*
 void iota_gfx_task_user(void) {
   struct CharacterMatrix matrix;
   matrix_clear(&matrix);
   matrix_render_user(&matrix);
   matrix_update(&display, &matrix);
 }
+*/
+
+void iota_gfx_task_user(void) {
+  ScreenMatrix matrix;
+  screen_clear(&matrix);
+
+  lifegame_update(&g_lifegame);
+  lifegame_render(&g_lifegame, &matrix);
+
+  screen_update(&g_screen, &matrix);
+}
+
 #endif//SSD1306OLED
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 #ifdef SSD1306OLED
-    set_keylog(keycode, record);
+    //set_keylog(keycode, record);
 #endif
     // set_timelog();
   }
@@ -222,6 +236,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       tap_code(KC_GRAVE);
       return false;
       break;
+#ifdef SSD1306OLED
+    case KC_LGINI:
+      lifegame_reset(&g_lifegame);
+      return false;
+      break;
+#endif
   }
   return true;
 }
